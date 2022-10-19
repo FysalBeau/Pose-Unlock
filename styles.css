@@ -1,6 +1,24 @@
-#result{
-    display: flex;
-    justify-content: center;
-    font-size: 150px;
-    border:1px solid black;
+
+#lock-screen{
+    width: 400px;
+    height: 800px;
+    object-fit: cover;
+}
+
+#home-screen{
+    display: none;
+    width: 400px;
+    height: 800px;
+    object-fit: cover;
+}
+
+#app-container{
+    display:none;
+}
+
+#result {
+  display: flex;
+  justify-content: center;
+  font-size: 150px;
+  border: 1px solid black;
 }
