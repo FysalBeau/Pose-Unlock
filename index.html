@@ -10,20 +10,25 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <button type="button" onclick="init()">Start</button>
-    <button type="button-stop" onclick="pause()">Stop</button>
-    <div><canvas id="canvas"></canvas></div>
+    <img id="lock-screen" src="assets/locked.png" onclick="unlockScreen()">
 
-    <!-- Password field -->
-    Password: <input type="password" value="" id="myInput" />
+    <div id="app-container">
+      <button type="button" onclick="init()">Start</button>
+      <button type="button-stop" onclick="pause()">Stop</button>
+      <div><canvas id="canvas"></canvas></div>
 
-    <!-- An element to toggle between password visibility -->
-    <input type="checkbox" onclick="showPasswordToggler()" />Show Pass
+      <!-- Password field -->
+      Password: <input type="password" value="" id="myInput" />
+      <!-- An element to toggle between password visibility -->
+      <input type="checkbox" onclick="showPasswordToggler()" />Show Pass
 
-    <!-- Result div displayed on the screen -->
-    <div id="result"></div>
+      <input type="submit" value="Login" onclick="matchPassword()" />
+      <!-- Result div displayed on the screen -->
+      <div id="result"></div>
 
-    <div id="label-container"></div>
+      <div id="label-container"></div>
+    </div>
 
+    <img id="home-screen" src = "assets/unlocked.png" onclick="">
   </body>
 </html>

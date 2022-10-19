@@ -137,6 +137,21 @@ async function pause() {
   }
 }
 
+// function to check if password input field matches saved password
+function matchPassword() {
+  let password = "tik";
+  let input = document.getElementById("myInput").value;
+  if (input != password) {
+    alert("Passwords did not match");
+  } else {
+    document.getElementById('app-container').style.display = "none";
+    document.getElementById('home-screen').style.display = "block";
+
+
+  }
+}
+
+//function for show password checkbox logic
 function showPasswordToggler() {
   var x = document.getElementById("myInput");
   if (x.type === "password") {
@@ -144,4 +159,9 @@ function showPasswordToggler() {
   } else {
     x.type = "password";
   }
+}
+
+function unlockScreen(){
+  document.getElementById('lock-screen').style.display = "none";
+  document.getElementById('app-container').style.display = "block";
 }
