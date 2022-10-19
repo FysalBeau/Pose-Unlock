@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
     <script src="script.js" defer></script>
-    <title>Document</title>
-</head>
-<body>
-    <div class="image-container">
-        <img id="image" src="assets/fox1.jpg"/>
-    </div>
-</body>
+  </head>
+  <body>
+    <button type="button" onclick="init()">Start</button>
+    <button type="button-stop" onclick="pause()">Stop</button>
+    <div><canvas id="canvas"></canvas></div>
+
+    <!-- Password field -->
+    Password: <input type="password" value="" id="myInput" />
+
+    <!-- An element to toggle between password visibility -->
+    <input type="checkbox" onclick="showPasswordToggler()" />Show Pass
+
+    <!-- Result div displayed on the screen -->
+    <div id="result"></div>
+
+    <div id="label-container"></div>
+
+  </body>
 </html>
