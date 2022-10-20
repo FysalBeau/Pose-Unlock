@@ -176,16 +176,21 @@ function showPasswordToggler() {
 
 let touchstartY = 0
 let touchendY = 0
+let hasEventHappened = false;
     
 function checkDirection() {
-  if (touchendY < touchstartY) alert('swiped down!')
-  if (touchendY > touchstartY){
-    document.getElementById("lock-screen").style.display = "none";
-    document.getElementById("app-container").style.visibility = "visible";
-    init();
-    toggleFullscreen();
-    // alert('swiped up!');
-  } 
+  if(hasEventHappened === false){
+    if (touchendY < touchstartY) alert('swiped down!')
+    if (touchendY > touchstartY){
+      document.getElementById("lock-screen").style.display = "none";
+      document.getElementById("app-container").style.visibility = "visible";
+      init();
+      toggleFullscreen();
+      // alert('swiped up!');
+    } 
+    hasEventHappened = true;
+  }
+ 
 }
 
 document.addEventListener('touchstart', e => {
