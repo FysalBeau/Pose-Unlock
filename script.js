@@ -62,6 +62,9 @@ async function predict() {
   // finally draw the poses
   drawPose(pose);
 
+  document.getElementById("pass-container").style.visibility ="visible";
+  document.getElementById("result").style.visibility ="visible";
+
   let displayedResult = "-";
   // if conditionals that concat the letter matching the trained model to the result string
   if (prediction[0].probability > 0.5) {
@@ -115,7 +118,6 @@ async function pause() {
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
-
   // if conditionals that concat the letter matching the trained model to the result string
   if (prediction[0].probability > 0.5) {
     result = result + "I";
@@ -139,13 +141,13 @@ async function pause() {
 
 // function to check if password input field matches saved password
 function matchPassword() {
-  let password = "tik";
+  let password = "TIK";
   let input = document.getElementById("myInput").value;
   if (input != password) {
     alert("Passwords did not match");
   } else {
     document.getElementById('app-container').style.display = "none";
-    document.getElementById('home-screen').style.display = "block";
+    document.getElementById('home-screen').style.visibility="visible";
 
 
   }
@@ -163,5 +165,5 @@ function showPasswordToggler() {
 
 function unlockScreen(){
   document.getElementById('lock-screen').style.display = "none";
-  document.getElementById('app-container').style.display = "block";
+  document.getElementById('app-container').style.visibility="visible";
 }

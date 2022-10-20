@@ -1,24 +1,51 @@
-
-#lock-screen{
-    width: 400px;
-    height: 800px;
-    object-fit: cover;
+#lock-screen {
+  width: 400px;
+  height: 800px;
+  object-fit: cover;
 }
 
-#home-screen{
-    display: none;
-    width: 400px;
-    height: 800px;
-    object-fit: cover;
+#home-screen {
+  visibility: hidden;
+  width: 400px;
+  height: 800px;
+  object-fit: cover;
 }
 
-#app-container{
-    display:none;
+#app-container {
+  visibility: hidden;
 }
 
 #result {
-  display: flex;
+  visibility: hidden;
+  display:flex;
   justify-content: center;
   font-size: 150px;
   border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#pass-container {
+  visibility: hidden;
+}
+
+#btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#start-btn {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+#stop-btn {
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+}
+
+#label-container {
+  display: none;
 }
