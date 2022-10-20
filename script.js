@@ -180,13 +180,11 @@ let hasEventHappened = false;
     
 function checkDirection() {
   if(hasEventHappened === false){
-    if (touchendY < touchstartY) alert('swiped down!')
-    if (touchendY > touchstartY){
+    if (touchendY < touchstartY){
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
       init();
       toggleFullscreen();
-      // alert('swiped up!');
     } 
     hasEventHappened = true;
   }
