@@ -62,8 +62,9 @@ async function predict() {
   // finally draw the poses
   drawPose(pose);
 
-  document.getElementById("pass-container").style.visibility ="visible";
-  document.getElementById("result").style.visibility ="visible";
+  document.getElementById("pass-container").style.visibility = "visible";
+  document.getElementById("result").style.visibility = "visible";
+  document.getElementById("btn-container").style.visibility = "visible";
 
   let displayedResult = "-";
   // if conditionals that concat the letter matching the trained model to the result string
@@ -146,10 +147,8 @@ function matchPassword() {
   if (input != password) {
     alert("Passwords did not match");
   } else {
-    document.getElementById('app-container').style.display = "none";
-    document.getElementById('home-screen').style.visibility="visible";
-
-
+    document.getElementById("app-container").style.display = "none";
+    document.getElementById("home-screen").style.visibility = "visible";
   }
 }
 
@@ -163,7 +162,29 @@ function showPasswordToggler() {
   }
 }
 
-function unlockScreen(){
-  document.getElementById('lock-screen').style.display = "none";
-  document.getElementById('app-container').style.visibility="visible";
+function unlockScreen() {
+  document.getElementById("lock-screen").style.display = "none";
+  document.getElementById("app-container").style.visibility = "visible";
+  init();
+  toggleFullscreen();
+}
+
+// Full-Screen Mode Toggle Code (Start)
+function getFullscreenElement() {
+  return (
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullscreenElement ||
+    document.msFullscreenElement
+  );
+}
+
+function toggleFullscreen() {
+  if (getFullscreenElement()) {
+    document.exitFullscreen();
+  } else {
+    document.documentElement.requestFullscreen().catch((e) => {
+      console.log(e);
+    });
+  }
 }

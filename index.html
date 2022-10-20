@@ -22,7 +22,10 @@
         <!-- Password field -->
         Password: <input type="password" value="" id="myInput" />
         <!-- An element to toggle between password visibility -->
-        <input type="checkbox" onclick="showPasswordToggler()" />Show Pass
+        <div>
+          <input type="checkbox" onclick="showPasswordToggler()" />Show Password
+        </div>
+    
 
         <input
           id="login-btn"
@@ -33,7 +36,7 @@
       </div>
 
       <div id="btn-container">
-        <button id="start-btn" type="button" onclick="init()">Start</button>
+        <button id="resume-btn" type="button" onclick="init()">Resume</button>
         <button id="stop-btn" type="button-stop" onclick="pause()">Stop</button>
       </div>
 
