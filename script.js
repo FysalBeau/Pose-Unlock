@@ -161,14 +161,47 @@ function showPasswordToggler() {
   }
 }
 
-function unlockScreen() {
-  document.getElementById("lock-screen").style.display = "none";
-  document.getElementById("app-container").style.visibility = "visible";
-  init();
-  toggleFullscreen();
+//function responsible for unlocking the screen
+// function unlockScreen() {
+//   document.getElementById("lock-screen").style.display = "none";
+//   document.getElementById("app-container").style.visibility = "visible";
+//   init();
+//   toggleFullscreen();
+// }
+
+
+
+
+// code responsible for swiping the lock screen open (Start)
+
+let touchstartY = 0
+let touchendY = 0
+    
+function checkDirection() {
+  if (touchendY < touchstartY) alert('swiped down!')
+  if (touchendY > touchstartY){
+    document.getElementById("lock-screen").style.display = "none";
+    document.getElementById("app-container").style.visibility = "visible";
+    init();
+    toggleFullscreen();
+    // alert('swiped up!');
+  } 
 }
 
+document.addEventListener('touchstart', e => {
+  touchstartY = e.changedTouches[0].screenY
+})
+
+document.addEventListener('touchend', e => {
+  touchendY = e.changedTouches[0].screenY
+  checkDirection()
+})
+
+
+
+
 // Full-Screen Mode Toggle Code (Start)
+
 function getFullscreenElement() {
   return (
     document.fullscreenElement ||
@@ -189,23 +222,7 @@ function toggleFullscreen() {
 }
 
 
-let touchstartY = 0
-let touchendY = 0
-    
-function checkDirection() {
-  if (touchendY < touchstartY) alert('swiped down!')
-  if (touchendY > touchstartY) alert('swiped up!')
-}
-
-document.addEventListener('touchstart', e => {
-  touchstartY = e.changedTouches[0].screenY
-})
-
-document.addEventListener('touchend', e => {
-  touchendY = e.changedTouches[0].screenY
-  checkDirection()
-})
-
+//code responsible for the timer (Start)
 
 // Credit: Mateusz Rybczonec
 
