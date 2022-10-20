@@ -19,9 +19,8 @@ async function init() {
   maxPredictions = model.getTotalClasses();
 
   // Convenience function to setup a webcam
-  const size = 370;
   const width = 370;
-  const height = 800;
+  const height = 370;
   const flip = true; // whether to flip the webcam
   webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
   await webcam.setup(); // request access to the webcam
@@ -30,8 +29,8 @@ async function init() {
 
   // append/get elements to the DOM
   const canvas = document.getElementById("canvas");
-  canvas.width = size;
-  canvas.height = size;
+  canvas.width = width;
+  canvas.height = height;
   ctx = canvas.getContext("2d");
   labelContainer = document.getElementById("label-container");
   for (let i = 0; i < maxPredictions; i++) {
@@ -66,7 +65,7 @@ async function predict() {
   document.getElementById("result").style.visibility = "visible";
   document.getElementById("btn-container").style.visibility = "visible";
 
-  let displayedResult = "-";
+  let displayedResult = "";
   // if conditionals that concat the letter matching the trained model to the result string
   if (prediction[0].probability > 0.5) {
     displayedResult = "I";
@@ -96,18 +95,18 @@ function drawPose(pose) {
   }
 }
 
-function delay() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("resolved");
-    }, 3000);
-  });
-}
-
 // function that
 async function pause() {
+
+
+  //stops the webcam!! 
+
   await webcam.setup();
   webcam.stop();
+
+  //stops the webcam!! 
+
+
   // Prediction #1: run input through posenet
   // estimatePose can take in an image, video or canvas html element
   const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
@@ -119,12 +118,12 @@ async function pause() {
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
+
   // if conditionals that concat the letter matching the trained model to the result string
   if (prediction[0].probability > 0.5) {
     result = result + "I";
     document.getElementById("myInput").value = result;
 
-    // const rst = await delay();
   }
   if (prediction[1].probability > 0.5) {
     result = result + "K";
