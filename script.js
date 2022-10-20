@@ -101,8 +101,8 @@ async function pause() {
 
   //stops the webcam!! 
 
-  // await webcam.setup();
-  // webcam.stop();
+  await webcam.setup();
+  webcam.stop();
 
   //stops the webcam!! 
 
