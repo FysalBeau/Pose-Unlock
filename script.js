@@ -97,15 +97,12 @@ function drawPose(pose) {
 
 // function that
 async function pause() {
-
-
-  //stops the webcam!! 
+  //stops the webcam!!
 
   await webcam.setup();
   webcam.stop();
 
-  //stops the webcam!! 
-
+  //stops the webcam!!
 
   // Prediction #1: run input through posenet
   // estimatePose can take in an image, video or canvas html element
@@ -123,7 +120,6 @@ async function pause() {
   if (prediction[0].probability > 0.5) {
     result = result + "I";
     document.getElementById("myInput").value = result;
-
   }
   if (prediction[1].probability > 0.5) {
     result = result + "K";
@@ -169,39 +165,32 @@ function showPasswordToggler() {
 //   toggleFullscreen();
 // }
 
-
-
-
 // code responsible for swiping the lock screen open (Start)
 
-let touchstartY = 0
-let touchendY = 0
+let touchstartY = 0;
+let touchendY = 0;
 let hasEventHappened = false;
-    
+
 function checkDirection() {
-  if(hasEventHappened === false){
-    if (touchendY < touchstartY){
+  if (hasEventHappened === false) {
+    if (touchendY < touchstartY) {
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
       init();
       toggleFullscreen();
-    } 
+    }
     hasEventHappened = true;
   }
- 
 }
 
-document.addEventListener('touchstart', e => {
-  touchstartY = e.changedTouches[0].screenY
-})
+document.addEventListener("touchstart", (e) => {
+  touchstartY = e.changedTouches[0].screenY;
+});
 
-document.addEventListener('touchend', e => {
-  touchendY = e.changedTouches[0].screenY
-  checkDirection()
-})
-
-
-
+document.addEventListener("touchend", (e) => {
+  touchendY = e.changedTouches[0].screenY;
+  checkDirection();
+});
 
 // Full-Screen Mode Toggle Code (Start)
 
@@ -225,121 +214,29 @@ function toggleFullscreen() {
 }
 
 
-//code responsible for the timer (Start)
+function startTimer(duration, display) {
+  var timer = duration, minutes, seconds;
+  setInterval(function () {
+      // minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10);
 
-// Credit: Mateusz Rybczonec
+      // minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
 
-const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 5;
-const ALERT_THRESHOLD = 2.5;
+      // display.textContent = minutes + ":" + seconds;
+      display.textContent = seconds;
 
-const COLOR_CODES = {
-  info: {
-    color: "green"
-  },
-  warning: {
-    color: "orange",
-    threshold: WARNING_THRESHOLD
-  },
-  alert: {
-    color: "red",
-    threshold: ALERT_THRESHOLD
-  }
-};
-
-const TIME_LIMIT = 10;
-let timePassed = 0;
-let timeLeft = TIME_LIMIT;
-let timerInterval = null;
-let remainingPathColor = COLOR_CODES.info.color;
-
-document.getElementById("app").innerHTML = `
-<div class="base-timer">
-  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <g class="base-timer__circle">
-      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-      <path
-        id="base-timer-path-remaining"
-        stroke-dasharray="283"
-        class="base-timer__path-remaining ${remainingPathColor}"
-        d="
-          M 50, 50
-          m -45, 0
-          a 45,45 0 1,0 90,0
-          a 45,45 0 1,0 -90,0
-        "
-      ></path>
-    </g>
-  </svg>
-  <span id="base-timer-label" class="base-timer__label">${formatTime(
-    timeLeft
-  )}</span>
-</div>
-`;
-
-startTimer();
-
-function onTimesUp() {
-  clearInterval(timerInterval);
-}
-
-function startTimer() {
-  timerInterval = setInterval(() => {
-    timePassed = timePassed += 1;
-    timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(
-      timeLeft
-    );
-    setCircleDasharray();
-    setRemainingPathColor(timeLeft);
-
-    if (timeLeft === 0) {
-      pause();
-      onTimesUp();
-    }
+      if (--timer < 0) {
+          timer = duration;
+          //if timer hits 0 seconds, capture letter value and restart feed
+          pause();
+          init();
+      }
   }, 1000);
 }
 
-function formatTime(time) {
-  const minutes = Math.floor(time / 60);
-  let seconds = time % 60;
-
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
-
-  return `${minutes}:${seconds}`;
-}
-
-function setRemainingPathColor(timeLeft) {
-  const { alert, warning, info } = COLOR_CODES;
-  if (timeLeft <= alert.threshold) {
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.remove(warning.color);
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.add(alert.color);
-  } else if (timeLeft <= warning.threshold) {
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.remove(info.color);
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.add(warning.color);
-  }
-}
-
-function calculateTimeFraction() {
-  const rawTimeFraction = timeLeft / TIME_LIMIT;
-  return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
-}
-
-function setCircleDasharray() {
-  const circleDasharray = `${(
-    calculateTimeFraction() * FULL_DASH_ARRAY
-  ).toFixed(0)} 283`;
-  document
-    .getElementById("base-timer-path-remaining")
-    .setAttribute("stroke-dasharray", circleDasharray);
-}
+window.onload = function () {
+  var tenSeconds = 10,
+      display = document.querySelector('#time');
+  startTimer(tenSeconds, display);
+};
