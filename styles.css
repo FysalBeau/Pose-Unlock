@@ -48,6 +48,8 @@
   border: 1px solid black;
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 130px;
+  height: 160px;
 }
 
 #pass-container {

@@ -6,7 +6,7 @@ const URL = "https://teachablemachine.withgoogle.com/models/8tu_VH4Yk/";
 let model, webcam, ctx, labelContainer, maxPredictions;
 
 //create a string to hold the input from the prediction classes, initialized to the empty string
-let result = "";
+var result = "";
 
 async function init() {
   const modelURL = URL + "model.json";
@@ -135,12 +135,24 @@ async function pause() {
   }
 }
 
+function deleteLast() {
+  let input = document.getElementById("myInput").value;
+  let newInput = input.slice(0, -1);
+  result = newInput;
+  document.getElementById("myInput").value = newInput;
+}
+
 // function to check if password input field matches saved password
 function matchPassword() {
   let password = "TIK";
   let input = document.getElementById("myInput").value;
   if (input != password) {
     alert("Passwords did not match");
+    document.getElementById("myInput").value = "";
+    result = "";
+    document.getElementById("myInput").style.backgroundColor = "#ffa6a6";
+
+
   } else {
     document.getElementById("app-container").style.display = "none";
     document.getElementById("home-screen").style.visibility = "visible";
