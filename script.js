@@ -190,6 +190,7 @@ function checkDirection() {
     if (touchendY < touchstartY) {
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
+      document.getElementById("myInput").disabled = "true";
       toggleFullscreen();
       init();
     }
@@ -264,65 +265,65 @@ window.onload = function () {
   startTimer(timerSeconds, display);
 };
 
-const i = document.getElementById("myInput");
+// const i = document.getElementById("myInput");
 
-i.addEventListener("keydown", function (e) {
-  if (
-    [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H",
-      "I",
-      "J",
-      "K",
-      "L",
-      "M",
-      "N",
-      "O",
-      "P",
-      "Q",
-      "R",
-      "S",
-      "T",
-      "U",
-      "V",
-      "W",
-      "X",
-      "Y",
-      "Z",
-    ].includes(e.key)
-  ) {
-    e.preventDefault();
-  }
-});
+// i.addEventListener("keydown", function (e) {
+//   if (
+//     [
+//       "a",
+//       "b",
+//       "c",
+//       "d",
+//       "e",
+//       "f",
+//       "g",
+//       "h",
+//       "i",
+//       "j",
+//       "k",
+//       "l",
+//       "m",
+//       "n",
+//       "o",
+//       "p",
+//       "q",
+//       "r",
+//       "s",
+//       "t",
+//       "u",
+//       "v",
+//       "w",
+//       "x",
+//       "y",
+//       "z",
+//       "A",
+//       "B",
+//       "C",
+//       "D",
+//       "E",
+//       "F",
+//       "G",
+//       "H",
+//       "I",
+//       "J",
+//       "K",
+//       "L",
+//       "M",
+//       "N",
+//       "O",
+//       "P",
+//       "Q",
+//       "R",
+//       "S",
+//       "T",
+//       "U",
+//       "V",
+//       "W",
+//       "X",
+//       "Y",
+//       "Z",
+//     ].includes(e.key)
+//   ) {
+//     e.preventDefault();
+//   }
+// });
