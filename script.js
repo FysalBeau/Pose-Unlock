@@ -334,3 +334,6 @@ i.addEventListener("keydown", function (e) {
     e.preventDefault();
   }
 });
+$("myInput").keydown(function(event) { 
+  return false;
+});
