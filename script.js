@@ -190,8 +190,8 @@ function checkDirection() {
     if (touchendY < touchstartY) {
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
-      init();
       toggleFullscreen();
+      init();
     }
     hasEventHappened = true;
   }
