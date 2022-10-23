@@ -19,7 +19,7 @@ async function init() {
   maxPredictions = model.getTotalClasses();
 
   // Convenience function to setup a webcam
-  const width = 394;
+  const width = 390;
   const height = 370;
   const flip = true; // whether to flip the webcam
   webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
@@ -179,14 +179,6 @@ function showPasswordToggler() {
   }
 }
 
-//function responsible for unlocking the screen
-// function unlockScreen() {
-//   document.getElementById("lock-screen").style.display = "none";
-//   document.getElementById("app-container").style.visibility = "visible";
-//   init();
-//   toggleFullscreen();
-// }
-
 // code responsible for swiping the lock screen open (Start)
 
 let touchstartY = 0;
@@ -333,7 +325,4 @@ i.addEventListener("keydown", function (e) {
   ) {
     e.preventDefault();
   }
-});
-$("myInput").keydown(function(event) { 
-  return false;
 });
