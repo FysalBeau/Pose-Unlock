@@ -1,7 +1,6 @@
-/* body{
-  overflow-y: hidden;
-  overflow-x: hidden;
-}  */
+body{
+ background-color: #E5E4E4 ;
+} 
 
 /* #lock-screen {
   width: 100%;
@@ -35,9 +34,18 @@
 
 #app-container {
   visibility: hidden;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 #result-timer-wrapper{
   display:flex;
+  border: 1px solid black;
+  
+}
+
+.result-timer-child {
+  width: 20%;
+  float: left;
 }
 
 #result {
@@ -45,7 +53,7 @@
   display: flex;
   justify-content: center;
   font-size: 150px;
-  border: 1px solid black;
+  
   margin-top: 10px;
   margin-bottom: 10px;
   width: 130px;
@@ -56,6 +64,7 @@
   display: flex;
   flex-direction: column;
   visibility: hidden;
+  margin-top: 10px;
 }
 
 #btn-container {
@@ -65,15 +74,16 @@
   visibility: hidden;
 }
 
+#myInputLabel {
+  color: red;
+  visibility: hidden;
+  display: none;
+}
+
 #resume-btn {
   width: 100px;
   height: 100px;
   margin-right: 20px;
-}
-#stop-btn {
-  width: 100px;
-  height: 100px;
-  margin-left: 20px;
 }
 
 #label-container {
@@ -81,7 +91,13 @@
 }
 
 #time{
-  font-size: 100px;
-  margin-left: 10px;
+  font-size: 150px;
+  margin-left: 100px;
   margin-top: 10px;
 }
+
+#canvas {
+  display: flex;
+  align-content: center;
+}
+

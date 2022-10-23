@@ -8,6 +8,7 @@ let model, webcam, ctx, labelContainer, maxPredictions;
 //create a string to hold the input from the prediction classes, initialized to the empty string
 var result = "";
 
+
 async function init() {
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
@@ -19,7 +20,7 @@ async function init() {
   maxPredictions = model.getTotalClasses();
 
   // Convenience function to setup a webcam
-  const width = 370;
+  const width = 394;
   const height = 370;
   const flip = true; // whether to flip the webcam
   webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
@@ -117,6 +118,7 @@ async function pause() {
   }
 
   // if conditionals that concat the letter matching the trained model to the result string
+  // result is GLOBAL
   if (prediction[0].probability > 0.5) {
     result = result + "I";
     document.getElementById("myInput").value = result;
@@ -133,6 +135,10 @@ async function pause() {
     result = result + "O";
     document.getElementById("myInput").value = result;
   }
+  // Reset color changes from wrong password
+  document.getElementById("myInput").style.backgroundColor = "#ffffff";
+  document.getElementById("myInputLabel").style.visibility = "hidden";
+  document.getElementById("myInputLabel").style.display = "none";
 }
 
 function deleteLast() {
@@ -147,7 +153,9 @@ function matchPassword() {
   let password = "TIK";
   let input = document.getElementById("myInput").value;
   if (input != password) {
-    alert("Passwords did not match");
+    // alert("Passwords did not match");
+    document.getElementById("myInputLabel").style.visibility = "visible";
+    document.getElementById("myInputLabel").style.display = "block";
     document.getElementById("myInput").value = "";
     result = "";
     document.getElementById("myInput").style.backgroundColor = "#ffa6a6";
@@ -161,7 +169,7 @@ function matchPassword() {
 
 //function for show password checkbox logic
 function showPasswordToggler() {
-  var x = document.getElementById("myInput");
+  let x = document.getElementById("myInput");
   if (x.type === "password") {
     x.type = "text";
   } else {
@@ -229,6 +237,7 @@ function toggleFullscreen() {
 function startTimer(duration, display) {
   var timer = duration, minutes, seconds;
   setInterval(function () {
+      duration = 10;
       // minutes = parseInt(timer / 60, 10)
       seconds = parseInt(timer % 60, 10);
 
@@ -237,6 +246,11 @@ function startTimer(duration, display) {
 
       // display.textContent = minutes + ":" + seconds;
       display.textContent = seconds;
+      if (seconds <= 3) {
+        display.style.color = "#FF0000"
+      } else {
+        display.style.color = "black"
+      }
 
       if (--timer < 0) {
           timer = duration;
@@ -248,7 +262,8 @@ function startTimer(duration, display) {
 }
 
 window.onload = function () {
-  var tenSeconds = 10,
+  // Initially wait 20 seconds, program loading is laggy then 10 sec in start timer hardcoded
+  let timerSeconds = 20,
       display = document.querySelector('#time');
-  startTimer(tenSeconds, display);
+  startTimer(timerSeconds, display);
 };
