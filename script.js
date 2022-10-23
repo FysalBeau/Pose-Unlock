@@ -97,12 +97,6 @@ function drawPose(pose) {
 
 // function that
 async function pause() {
-
-  // Convenience function to setup a webcam
-  const width = 394;
-  const height = 370;
-  const flip = true; // whether to flip the webcam
-  webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
     //stops the webcam!!
   await webcam.setup();
   webcam.stop();
@@ -144,6 +138,8 @@ async function pause() {
   document.getElementById("myInputLabel").style.visibility = "hidden";
   document.getElementById("myInputLabel").style.display = "none";
 }
+//disable password textfield
+document.getElementById("myInput").disabled = "true";
 
 function deleteLast() {
   let input = document.getElementById("myInput").value;
@@ -188,10 +184,9 @@ let hasEventHappened = false;
 function checkDirection() {
   if (hasEventHappened === false) {
     if (touchendY < touchstartY) {
+      toggleFullscreen();
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
-      document.getElementById("myInput").disabled = "true";
-      toggleFullscreen();
       init();
     }
     hasEventHappened = true;

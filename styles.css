@@ -1,4 +1,3 @@
-
 html,
 body {
   background-color: #e5e4e4;
@@ -97,4 +96,9 @@ body {
 #canvas {
   display: flex;
   align-content: center;
+}
+
+
+@media screen and (max-width: 390px), screen and (max-height:800px) {
+
 }
