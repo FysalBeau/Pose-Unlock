@@ -1,43 +1,46 @@
-/* body{
-  overflow-y: hidden;
-  overflow-x: hidden;
-}  */
 
-/* #lock-screen {
-  width: 100%;
+html,
+body {
+  background-color: #e5e4e4;
+  margin: 0;
   height: 100%;
-  max-width: 420px;
-  max-width: 850px;
-  object-fit: cover;
+  overflow: hidden;
 }
-
-#home-screen {
-  visibility: hidden;
-  width: 100%;
-  height: 100%;
-  max-width: 420px;
-  max-width: 850px;
-  object-fit: cover;
-}  */
-
 #lock-screen {
-  width: 400px;
-  height: 800px;
+  width: 100%;
+  height: 100%;
+  max-width: 420px;
+  max-height: 900px;
   object-fit: cover;
 }
 
 #home-screen {
   visibility: hidden;
-  width: 400px;
-  height: 800px;
+  width: 100%;
+  height: 100%;
+  max-width: 420px;
+  max-height: 900px;
   object-fit: cover;
-}
+} 
 
 #app-container {
+  width: 100%;
+  height: 100%;
+  max-width: 420px;
+  max-height: 900px;
   visibility: hidden;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-#result-timer-wrapper{
-  display:flex;
+#result-timer-wrapper {
+  display: flex;
+  border: 1px solid black;
+  width: 394px;
+}
+
+.result-timer-child {
+  width: 20%;
+  float: left;
 }
 
 #result {
@@ -45,15 +48,18 @@
   display: flex;
   justify-content: center;
   font-size: 150px;
-  border: 1px solid black;
+
   margin-top: 10px;
-  margin-bottom: 10px;
+  width: 130px;
+  height: 160px;
 }
 
 #pass-container {
   display: flex;
   flex-direction: column;
   visibility: hidden;
+  margin-top: 10px;
+  width: 394px;
 }
 
 #btn-container {
@@ -61,6 +67,13 @@
   justify-content: center;
   margin-top: 10px;
   visibility: hidden;
+  width: 394px;
+}
+
+#myInputLabel {
+  color: red;
+  visibility: hidden;
+  display: none;
 }
 
 #resume-btn {
@@ -68,18 +81,18 @@
   height: 100px;
   margin-right: 20px;
 }
-#stop-btn {
-  width: 100px;
-  height: 100px;
-  margin-left: 20px;
-}
 
 #label-container {
   display: none;
 }
 
-#time{
-  font-size: 100px;
-  margin-left: 10px;
+#time {
+  font-size: 150px;
+  margin-left: 80px;
   margin-top: 10px;
+}
+
+#canvas {
+  display: flex;
+  align-content: center;
 }

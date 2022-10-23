@@ -6,7 +6,7 @@ const URL = "https://teachablemachine.withgoogle.com/models/8tu_VH4Yk/";
 let model, webcam, ctx, labelContainer, maxPredictions;
 
 //create a string to hold the input from the prediction classes, initialized to the empty string
-let result = "";
+var result = "";
 
 async function init() {
   const modelURL = URL + "model.json";
@@ -19,7 +19,7 @@ async function init() {
   maxPredictions = model.getTotalClasses();
 
   // Convenience function to setup a webcam
-  const width = 370;
+  const width = 394;
   const height = 370;
   const flip = true; // whether to flip the webcam
   webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
@@ -97,8 +97,13 @@ function drawPose(pose) {
 
 // function that
 async function pause() {
-  //stops the webcam!!
 
+  // Convenience function to setup a webcam
+  const width = 394;
+  const height = 370;
+  const flip = true; // whether to flip the webcam
+  webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
+    //stops the webcam!!
   await webcam.setup();
   webcam.stop();
 
@@ -117,6 +122,7 @@ async function pause() {
   }
 
   // if conditionals that concat the letter matching the trained model to the result string
+  // result is GLOBAL
   if (prediction[0].probability > 0.5) {
     result = result + "I";
     document.getElementById("myInput").value = result;
@@ -133,6 +139,17 @@ async function pause() {
     result = result + "O";
     document.getElementById("myInput").value = result;
   }
+  // Reset color changes from wrong password
+  document.getElementById("myInput").style.backgroundColor = "#ffffff";
+  document.getElementById("myInputLabel").style.visibility = "hidden";
+  document.getElementById("myInputLabel").style.display = "none";
+}
+
+function deleteLast() {
+  let input = document.getElementById("myInput").value;
+  let newInput = input.slice(0, -1);
+  result = newInput;
+  document.getElementById("myInput").value = newInput;
 }
 
 // function to check if password input field matches saved password
@@ -140,7 +157,12 @@ function matchPassword() {
   let password = "TIK";
   let input = document.getElementById("myInput").value;
   if (input != password) {
-    alert("Passwords did not match");
+    // alert("Passwords did not match");
+    document.getElementById("myInputLabel").style.visibility = "visible";
+    document.getElementById("myInputLabel").style.display = "block";
+    document.getElementById("myInput").value = "";
+    result = "";
+    document.getElementById("myInput").style.backgroundColor = "#ffa6a6";
   } else {
     document.getElementById("app-container").style.display = "none";
     document.getElementById("home-screen").style.visibility = "visible";
@@ -149,7 +171,7 @@ function matchPassword() {
 
 //function for show password checkbox logic
 function showPasswordToggler() {
-  var x = document.getElementById("myInput");
+  let x = document.getElementById("myInput");
   if (x.type === "password") {
     x.type = "text";
   } else {
@@ -185,6 +207,7 @@ function checkDirection() {
 
 document.addEventListener("touchstart", (e) => {
   touchstartY = e.changedTouches[0].screenY;
+ 
 });
 
 document.addEventListener("touchend", (e) => {
@@ -213,30 +236,101 @@ function toggleFullscreen() {
   }
 }
 
-
 function startTimer(duration, display) {
-  var timer = duration, minutes, seconds;
+  var timer = duration,
+    minutes,
+    seconds;
   setInterval(function () {
-      // minutes = parseInt(timer / 60, 10)
-      seconds = parseInt(timer % 60, 10);
+    duration = 10;
+    // minutes = parseInt(timer / 60, 10)
+    seconds = parseInt(timer % 60, 10);
 
-      // minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
+    // minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-      // display.textContent = minutes + ":" + seconds;
-      display.textContent = seconds;
+    // display.textContent = minutes + ":" + seconds;
+    display.textContent = seconds;
+    if (seconds <= 3) {
+      display.style.color = "#FF0000";
+    } else {
+      display.style.color = "black";
+    }
 
-      if (--timer < 0) {
-          timer = duration;
-          //if timer hits 0 seconds, capture letter value and restart feed
-          pause();
-          init();
-      }
+    if (--timer < 0) {
+      timer = duration;
+      //if timer hits 0 seconds, capture letter value and restart feed
+      pause();
+      init();
+    }
   }, 1000);
 }
 
 window.onload = function () {
-  var tenSeconds = 10,
-      display = document.querySelector('#time');
-  startTimer(tenSeconds, display);
+  // Initially wait 20 seconds, program loading is laggy then 10 sec in start timer hardcoded
+  let timerSeconds = 20,
+    display = document.querySelector("#time");
+  startTimer(timerSeconds, display);
 };
+
+const i = document.getElementById("myInput");
+
+i.addEventListener("keydown", function (e) {
+  if (
+    [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+    ].includes(e.key)
+  ) {
+    e.preventDefault();
+  }
+});
