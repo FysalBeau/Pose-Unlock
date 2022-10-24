@@ -2,8 +2,13 @@ html,
 body {
   background-color: #e5e4e4;
   margin: 0;
-  height: 100%;
-  overflow: hidden;
+  /* overflow:hidden; */
+}
+
+.lock-screen-wrapper{
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #lock-screen {
@@ -13,6 +18,13 @@ body {
   max-height: 930px;
   object-fit: cover;
 }
+
+.home-screen-wrapper{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 #home-screen {
   visibility: hidden;
@@ -30,20 +42,28 @@ body {
   /* justify-content: center; */
   align-items: center;
 
-
   width: 100%;
-  height: 100%;
+  height: 900px;
+  /* height: 100%; */
   visibility: hidden;
+  margin-bottom: 100px;
 }
+
+
 #result-timer-wrapper {
   display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid black;
-  width: 390px;
+  /* width: 390px; */
 }
 
 .result-timer-child {
-  width: 20%;
-  float: left;
+  /* width: 20%; */
+  /* float: left; */
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #result {
@@ -51,8 +71,16 @@ body {
   display: flex;
   justify-content: center;
   font-size: 150px;
-  width: 130px;
-  height: 160px;
+  margin-left: 20px;
+  /* width: 130px; */
+  /* height: 160px; */
+}
+
+#time {
+  display: inline-block;
+  font-size: 150px;
+  margin-left: 80px;
+  margin-right: 5px;
 }
 
 #pass-container {
@@ -87,18 +115,9 @@ body {
   display: none;
 }
 
-#time {
-  font-size: 150px;
-  margin-left: 80px;
-  margin-top: 10px;
-}
+
 
 #canvas {
   display: flex;
   align-content: center;
-}
-
-
-@media screen and (max-width: 390px), screen and (max-height:800px) {
-
 }

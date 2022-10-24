@@ -8,6 +8,16 @@ let model, webcam, ctx, labelContainer, maxPredictions;
 //create a string to hold the input from the prediction classes, initialized to the empty string
 var result = "";
 
+// For screen size you can use the screen object
+const height = window.screen.height;
+const width = window.screen.width;
+
+// console.log("width " + width);
+// console.log("height " + height);
+document.getElementById("result-timer-wrapper").style.width = width - 5 + "px";
+document.getElementById("pass-container").style.width = width + "px";
+document.getElementById("btn-container").style.width = width + "px";
+
 async function init() {
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
@@ -19,10 +29,11 @@ async function init() {
   maxPredictions = model.getTotalClasses();
 
   // Convenience function to setup a webcam
-  const width = 390;
-  const height = 370;
+  // const width = 390;
+  // const height = 370;
+
   const flip = true; // whether to flip the webcam
-  webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
+  webcam = new tmPose.Webcam(width, width, flip); // width, height, flip
   await webcam.setup(); // request access to the webcam
   await webcam.play();
   window.requestAnimationFrame(loop);
@@ -30,7 +41,7 @@ async function init() {
   // append/get elements to the DOM
   const canvas = document.getElementById("canvas");
   canvas.width = width;
-  canvas.height = height;
+  canvas.height = width;
   ctx = canvas.getContext("2d");
   labelContainer = document.getElementById("label-container");
   for (let i = 0; i < maxPredictions; i++) {
@@ -43,6 +54,7 @@ async function loop(timestamp) {
   webcam.update(); // update the webcam frame
   await predict();
   window.requestAnimationFrame(loop);
+
 }
 
 async function predict() {
@@ -97,7 +109,7 @@ function drawPose(pose) {
 
 // function that
 async function pause() {
-    //stops the webcam!!
+  //stops the webcam!!
   await webcam.setup();
   webcam.stop();
 
@@ -184,6 +196,7 @@ let hasEventHappened = false;
 function checkDirection() {
   if (hasEventHappened === false) {
     if (touchendY < touchstartY) {
+      // document.body.style.overflow = "visible";
       toggleFullscreen();
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
@@ -195,7 +208,6 @@ function checkDirection() {
 
 document.addEventListener("touchstart", (e) => {
   touchstartY = e.changedTouches[0].screenY;
- 
 });
 
 document.addEventListener("touchend", (e) => {
@@ -259,66 +271,3 @@ window.onload = function () {
     display = document.querySelector("#time");
   startTimer(timerSeconds, display);
 };
-
-// const i = document.getElementById("myInput");
-
-// i.addEventListener("keydown", function (e) {
-//   if (
-//     [
-//       "a",
-//       "b",
-//       "c",
-//       "d",
-//       "e",
-//       "f",
-//       "g",
-//       "h",
-//       "i",
-//       "j",
-//       "k",
-//       "l",
-//       "m",
-//       "n",
-//       "o",
-//       "p",
-//       "q",
-//       "r",
-//       "s",
-//       "t",
-//       "u",
-//       "v",
-//       "w",
-//       "x",
-//       "y",
-//       "z",
-//       "A",
-//       "B",
-//       "C",
-//       "D",
-//       "E",
-//       "F",
-//       "G",
-//       "H",
-//       "I",
-//       "J",
-//       "K",
-//       "L",
-//       "M",
-//       "N",
-//       "O",
-//       "P",
-//       "Q",
-//       "R",
-//       "S",
-//       "T",
-//       "U",
-//       "V",
-//       "W",
-//       "X",
-//       "Y",
-//       "Z",
-//     ].includes(e.key)
-//   ) {
-//     e.preventDefault();
-//   }
-// });
