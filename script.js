@@ -19,7 +19,7 @@ document.getElementById("btn-container").style.width = width + "px";
 
 // Function to initialize the model and webcam
 async function init() {
-  const modelURL = URL + "model.json";      // URL for the model
+  const modelURL = URL + "model.json"; // URL for the model
   const metadataURL = URL + "metadata.json"; // URL for the metadata
 
   // Load the model and metadata
@@ -29,7 +29,7 @@ async function init() {
   const flip = true; // Whether to flip the webcam
   webcam = new tmPose.Webcam(width, width, flip); // Setup the webcam with specified dimensions
   await webcam.setup(); // Request access to the webcam
-  await webcam.play();  // Start the webcam feed
+  await webcam.play(); // Start the webcam feed
   window.requestAnimationFrame(loop); // Start the animation loop
 
   // Setup the canvas for drawing predictions
@@ -38,7 +38,7 @@ async function init() {
   canvas.height = width;
   ctx = canvas.getContext("2d");
   labelContainer = document.getElementById("label-container");
-  
+
   // Create a label container for displaying prediction results
   for (let i = 0; i < maxPredictions; i++) {
     labelContainer.appendChild(document.createElement("div"));
@@ -56,7 +56,7 @@ async function loop(timestamp) {
 async function predict() {
   // Prediction #1: Estimate the pose using the webcam canvas
   const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-  
+
   // Prediction #2: Run the input through the Teachable Machine classification model
   const prediction = await model.predict(posenetOutput);
 
@@ -89,7 +89,7 @@ async function predict() {
   if (prediction[3].probability > 0.5) {
     displayedResult = "O";
   }
-  
+
   // Set the innerText of the element with id 'result' to the displayedResult string
   document.getElementById("result").innerText = displayedResult;
 }
