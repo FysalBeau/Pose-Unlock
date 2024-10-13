@@ -1,4 +1,3 @@
-/* Global Styles */
 html,
 body {
   background-color: #e5e4e4;
@@ -6,9 +5,8 @@ body {
   /* overflow:hidden; */
 }
 
-/* Lock Screen Styles */
-.lock-screen-wrapper {
-  display: flex;
+.lock-screen-wrapper{
+  display:flex;
   justify-content: center;
   align-items: center;
 }
@@ -21,12 +19,12 @@ body {
   object-fit: cover;
 }
 
-/* Home Screen Styles */
-.home-screen-wrapper {
-  display: flex;
+.home-screen-wrapper{
+  display:flex;
   justify-content: center;
   align-items: center;
 }
+
 
 #home-screen {
   visibility: hidden;
@@ -35,12 +33,11 @@ body {
   max-width: 430px;
   max-height: 930px;
   object-fit: cover;
-}
+} 
 
-/* App Container Styles */
 #app-container {
-  /* Code to make the app-container stay centered regardless of phone screen size */
-  display: flex;
+  /* code to make the app-container stay centered regardless of phone screen size */
+  display:flex;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
@@ -52,7 +49,7 @@ body {
   margin-bottom: 100px;
 }
 
-/* Result Timer Styles */
+
 #result-timer-wrapper {
   display: flex;
   justify-content: center;
@@ -64,12 +61,11 @@ body {
 .result-timer-child {
   /* width: 20%; */
   /* float: left; */
-  display: flex;
+  display:flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Result Display Styles */
 #result {
   visibility: hidden;
   display: flex;
@@ -87,12 +83,19 @@ body {
   margin-right: 5px;
 }
 
-/* Password Input Styles */
 #pass-container {
   display: flex;
   flex-direction: column;
   visibility: hidden;
   margin-top: 10px;
+  width: 394px;
+}
+
+#btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  visibility: hidden;
   width: 394px;
 }
 
@@ -102,27 +105,18 @@ body {
   display: none;
 }
 
-/* Button Container Styles */
-#btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  visibility: hidden;
-  width: 394px;
-}
-
 #resume-btn {
   width: 100px;
   height: 100px;
   margin-right: 20px;
 }
 
-/* Label Container Styles */
 #label-container {
   display: none;
 }
 
-/* Canvas Styles */
+
+
 #canvas {
   display: flex;
   align-content: center;

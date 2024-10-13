@@ -1,82 +1,84 @@
 // More API functions here:
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
-// The link to your model provided by Teachable Machine export panel
+// the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/8tu_VH4Yk/";
 let model, webcam, ctx, labelContainer, maxPredictions;
 
-// Create a string to hold the input from the prediction classes, initialized to the empty string
+//create a string to hold the input from the prediction classes, initialized to the empty string
 var result = "";
 
-// Get the screen dimensions
+// For screen size you can use the screen object
 const height = window.screen.height;
 const width = window.screen.width;
 
-// Adjust the width of certain DOM elements based on screen width
+// console.log("width " + width);
+// console.log("height " + height);
 document.getElementById("result-timer-wrapper").style.width = width - 5 + "px";
 document.getElementById("pass-container").style.width = width + "px";
 document.getElementById("btn-container").style.width = width + "px";
 
-// Function to initialize the model and webcam
 async function init() {
-  const modelURL = URL + "model.json"; // URL for the model
-  const metadataURL = URL + "metadata.json"; // URL for the metadata
+  const modelURL = URL + "model.json";
+  const metadataURL = URL + "metadata.json";
 
-  // Load the model and metadata
+  // load the model and metadata
+  // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+  // Note: the pose library adds a tmPose object to your window (window.tmPose)
   model = await tmPose.load(modelURL, metadataURL);
-  maxPredictions = model.getTotalClasses(); // Get the total number of prediction classes
+  maxPredictions = model.getTotalClasses();
 
-  const flip = true; // Whether to flip the webcam
-  webcam = new tmPose.Webcam(width, width, flip); // Setup the webcam with specified dimensions
-  await webcam.setup(); // Request access to the webcam
-  await webcam.play(); // Start the webcam feed
-  window.requestAnimationFrame(loop); // Start the animation loop
+  // Convenience function to setup a webcam
+  // const width = 390;
+  // const height = 370;
 
-  // Setup the canvas for drawing predictions
+  const flip = true; // whether to flip the webcam
+  webcam = new tmPose.Webcam(width, width, flip); // width, height, flip
+  await webcam.setup(); // request access to the webcam
+  await webcam.play();
+  window.requestAnimationFrame(loop);
+
+  // append/get elements to the DOM
   const canvas = document.getElementById("canvas");
   canvas.width = width;
   canvas.height = width;
   ctx = canvas.getContext("2d");
   labelContainer = document.getElementById("label-container");
-
-  // Create a label container for displaying prediction results
   for (let i = 0; i < maxPredictions; i++) {
+    // and class labels
     labelContainer.appendChild(document.createElement("div"));
   }
 }
 
-// Animation loop to update webcam and make predictions
 async function loop(timestamp) {
-  webcam.update(); // Update the webcam frame
-  await predict(); // Make predictions based on the current webcam frame
-  window.requestAnimationFrame(loop); // Continue the loop
+  webcam.update(); // update the webcam frame
+  await predict();
+  window.requestAnimationFrame(loop);
+
 }
 
-// Function to predict the pose and display results
 async function predict() {
-  // Prediction #1: Estimate the pose using the webcam canvas
+  // Prediction #1: run input through posenet
+  // estimatePose can take in an image, video or canvas html element
   const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-
-  // Prediction #2: Run the input through the Teachable Machine classification model
+  // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
-  // Update label container with prediction results
   for (let i = 0; i < maxPredictions; i++) {
     const classPrediction =
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
 
-  // Draw the detected poses on the canvas
+  // finally draw the poses
   drawPose(pose);
 
-  // Make certain elements visible after prediction
   document.getElementById("pass-container").style.visibility = "visible";
   document.getElementById("result").style.visibility = "visible";
   document.getElementById("btn-container").style.visibility = "visible";
 
   let displayedResult = "";
-  // Check probabilities and concatenate the letter matching the trained model to the result string
+  // if conditionals that concat the letter matching the trained model to the result string
   if (prediction[0].probability > 0.5) {
     displayedResult = "I";
   }
@@ -89,133 +91,132 @@ async function predict() {
   if (prediction[3].probability > 0.5) {
     displayedResult = "O";
   }
-
-  // Set the innerText of the element with id 'result' to the displayedResult string
+  //set innerText of element with id result to the displayedResult string
   document.getElementById("result").innerText = displayedResult;
 }
 
-// Function to draw the detected pose on the canvas
 function drawPose(pose) {
   if (webcam.canvas) {
-    ctx.drawImage(webcam.canvas, 0, 0); // Draw the webcam image on the canvas
-    // Draw the keypoints and skeleton if pose is detected
+    ctx.drawImage(webcam.canvas, 0, 0);
+    // draw the keypoints and skeleton
     if (pose) {
-      const minPartConfidence = 0.5; // Minimum confidence for keypoints
-      tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx); // Draw keypoints
-      tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx); // Draw skeleton
+      const minPartConfidence = 0.5;
+      tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+      tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
     }
   }
 }
 
-// Function to pause the webcam and process predictions
+// function that
 async function pause() {
-  // Stops the webcam
+  //stops the webcam!!
   await webcam.setup();
   webcam.stop();
 
-  // Make predictions after pausing
+  //stops the webcam!!
+
+  // Prediction #1: run input through posenet
+  // estimatePose can take in an image, video or canvas html element
   const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+  // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
-  // Update label container with prediction results
   for (let i = 0; i < maxPredictions; i++) {
     const classPrediction =
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
 
-  // Check probabilities and concatenate the letter matching the trained model to the result string
+  // if conditionals that concat the letter matching the trained model to the result string
+  // result is GLOBAL
   if (prediction[0].probability > 0.5) {
-    result += "I";
-    document.getElementById("myInput").value = result; // Update input value
+    result = result + "I";
+    document.getElementById("myInput").value = result;
   }
   if (prediction[1].probability > 0.5) {
-    result += "K";
-    document.getElementById("myInput").value = result; // Update input value
+    result = result + "K";
+    document.getElementById("myInput").value = result;
   }
   if (prediction[2].probability > 0.5) {
-    result += "T";
-    document.getElementById("myInput").value = result; // Update input value
+    result = result + "T";
+    document.getElementById("myInput").value = result;
   }
   if (prediction[3].probability > 0.5) {
-    result += "O";
-    document.getElementById("myInput").value = result; // Update input value
+    result = result + "O";
+    document.getElementById("myInput").value = result;
   }
-
-  // Reset color changes from incorrect password attempts
+  // Reset color changes from wrong password
   document.getElementById("myInput").style.backgroundColor = "#ffffff";
   document.getElementById("myInputLabel").style.visibility = "hidden";
   document.getElementById("myInputLabel").style.display = "none";
 }
-
-// Disable password input field initially
+//disable password textfield
 document.getElementById("myInput").disabled = "true";
 
-// Function to delete the last character from the input field
 function deleteLast() {
   let input = document.getElementById("myInput").value;
-  let newInput = input.slice(0, -1); // Remove the last character
-  result = newInput; // Update the result string
-  document.getElementById("myInput").value = newInput; // Update input field
+  let newInput = input.slice(0, -1);
+  result = newInput;
+  document.getElementById("myInput").value = newInput;
 }
 
-// Function to check if the input matches the saved password
+// function to check if password input field matches saved password
 function matchPassword() {
-  let password = "TIK"; // Predefined password
-  let input = document.getElementById("myInput").value; // Get input value
-  if (input !== password) {
-    // If passwords do not match, show an error message
+  let password = "TIK";
+  let input = document.getElementById("myInput").value;
+  if (input != password) {
+    // alert("Passwords did not match");
     document.getElementById("myInputLabel").style.visibility = "visible";
     document.getElementById("myInputLabel").style.display = "block";
-    document.getElementById("myInput").value = ""; // Clear input field
-    result = ""; // Reset result string
-    document.getElementById("myInput").style.backgroundColor = "#ffa6a6"; // Change background color to indicate error
+    document.getElementById("myInput").value = "";
+    result = "";
+    document.getElementById("myInput").style.backgroundColor = "#ffa6a6";
   } else {
-    // If passwords match, proceed to unlock
-    document.getElementById("app-container").style.display = "none"; // Hide the app container
-    document.getElementById("home-screen").style.visibility = "visible"; // Show the home screen
+    document.getElementById("app-container").style.display = "none";
+    document.getElementById("home-screen").style.visibility = "visible";
   }
 }
 
-// Function to toggle the visibility of the password input
+//function for show password checkbox logic
 function showPasswordToggler() {
   let x = document.getElementById("myInput");
   if (x.type === "password") {
-    x.type = "text"; // Show the password
+    x.type = "text";
   } else {
-    x.type = "password"; // Hide the password
+    x.type = "password";
   }
 }
 
-// Code responsible for swiping the lock screen open
-let touchstartY = 0; // Starting Y coordinate for touch
-let touchendY = 0; // Ending Y coordinate for touch
-let hasEventHappened = false; // Flag to prevent multiple events
+// code responsible for swiping the lock screen open (Start)
+
+let touchstartY = 0;
+let touchendY = 0;
+let hasEventHappened = false;
 
 function checkDirection() {
-  if (!hasEventHappened) {
+  if (hasEventHappened === false) {
     if (touchendY < touchstartY) {
-      // If swipe up, toggle fullscreen and show app container
+      // document.body.style.overflow = "visible";
       toggleFullscreen();
-      document.getElementById("lock-screen").style.display = "none"; // Hide lock screen
-      document.getElementById("app-container").style.visibility = "visible"; // Show app container
-      init(); // Initialize the model and webcam
+      document.getElementById("lock-screen").style.display = "none";
+      document.getElementById("app-container").style.visibility = "visible";
+      init();
     }
-    hasEventHappened = true; // Set the flag to true to prevent multiple events
+    hasEventHappened = true;
   }
 }
 
-// Event listeners for touch events
 document.addEventListener("touchstart", (e) => {
-  touchstartY = e.changedTouches[0].screenY; // Get starting Y coordinate
+  touchstartY = e.changedTouches[0].screenY;
 });
 
 document.addEventListener("touchend", (e) => {
-  touchendY = e.changedTouches[0].screenY; // Get ending Y coordinate
-  checkDirection(); // Check swipe direction
+  touchendY = e.changedTouches[0].screenY;
+  checkDirection();
 });
 
-// Full-Screen Mode Toggle Code
+// Full-Screen Mode Toggle Code (Start)
+
 function getFullscreenElement() {
   return (
     document.fullscreenElement ||
@@ -225,48 +226,48 @@ function getFullscreenElement() {
   );
 }
 
-// Function to toggle full-screen mode
 function toggleFullscreen() {
   if (getFullscreenElement()) {
-    document.exitFullscreen(); // Exit full-screen mode
+    document.exitFullscreen();
   } else {
     document.documentElement.requestFullscreen().catch((e) => {
-      console.log(e); // Log any errors
+      console.log(e);
     });
   }
 }
 
-// Function to start a timer
 function startTimer(duration, display) {
-  var timer = duration; // Initialize the timer
+  var timer = duration,
+    minutes,
+    seconds;
   setInterval(function () {
-    duration = 10; // Reset duration to 10
-    seconds = parseInt(timer % 60, 10); // Get seconds
+    duration = 10;
+    // minutes = parseInt(timer / 60, 10)
+    seconds = parseInt(timer % 60, 10);
 
-    // Display seconds in the specified format
+    // minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    display.textContent = seconds; // Update the display
-
-    // Change display color based on time left
+    // display.textContent = minutes + ":" + seconds;
+    display.textContent = seconds;
     if (seconds <= 3) {
-      display.style.color = "#FF0000"; // Change color to red
+      display.style.color = "#FF0000";
     } else {
-      display.style.color = "black"; // Change back to black
+      display.style.color = "black";
     }
 
     if (--timer < 0) {
-      timer = duration; // Reset timer
-      // If timer hits 0 seconds, capture letter value and restart feed
-      pause(); // Pause the webcam
-      init(); // Reinitialize the model and webcam
+      timer = duration;
+      //if timer hits 0 seconds, capture letter value and restart feed
+      pause();
+      init();
     }
-  }, 1000); // Run every second
+  }, 1000);
 }
 
-// On window load, start the timer
 window.onload = function () {
-  let timerSeconds = 20; // Initial wait time
-  let display = document.querySelector("#time"); // Get timer display element
-  startTimer(timerSeconds, display); // Start the timer
+  // Initially wait 20 seconds, program loading is laggy then 10 sec in start timer hardcoded
+  let timerSeconds = 20,
+    display = document.querySelector("#time");
+  startTimer(timerSeconds, display);
 };
