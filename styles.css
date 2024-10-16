@@ -1,12 +1,15 @@
+/* General styles */
 html,
 body {
-  background-color: #e5e4e4;
-  margin: 0;
+  background-color: #111111;
+  /* margin: 0; */
+  overflow-y: hidden;
   /* overflow:hidden; */
 }
 
-.lock-screen-wrapper{
-  display:flex;
+/* Lock screen wrapper */
+.lock-screen-wrapper {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -19,49 +22,53 @@ body {
   object-fit: cover;
 }
 
-.home-screen-wrapper{
-  display:flex;
+/* App container */
+#app-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height:100%;
+  visibility: hidden;
 }
 
-
-#home-screen {
-  visibility: hidden;
+/* Canvas container */
+.canvas-container {
+  background-color: white;
   width: 100%;
+  max-width: 450px;
   height: 100%;
-  max-width: 430px;
-  max-height: 930px;
-  object-fit: cover;
-} 
-
-#app-container {
-  /* code to make the app-container stay centered regardless of phone screen size */
-  display:flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
-
-  width: 100%;
-  height: 900px;
-  /* height: 100%; */
-  visibility: hidden;
-  margin-bottom: 100px;
+  max-height: 450px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
+#canvas {
+  display: flex;
+  align-content: center;
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+  max-height: 450px;
+  background-color: white;
+}
 
+/* Result timer wrapper */
 #result-timer-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  /* width: 390px; */
+  border: 1px solid white;
+  width: 100%;
+  max-width: 450px;
+  max-height: 200px;
+  background-color: white;
 }
 
 .result-timer-child {
-  /* width: 20%; */
-  /* float: left; */
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -72,8 +79,6 @@ body {
   justify-content: center;
   font-size: 150px;
   margin-left: 20px;
-  /* width: 130px; */
-  /* height: 160px; */
 }
 
 #time {
@@ -83,20 +88,14 @@ body {
   margin-right: 5px;
 }
 
+/* Password container */
 #pass-container {
   display: flex;
   flex-direction: column;
   visibility: hidden;
   margin-top: 10px;
-  width: 394px;
-}
-
-#btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  visibility: hidden;
-  width: 394px;
+  width: 100%;
+  max-width: 450px;
 }
 
 #myInputLabel {
@@ -105,19 +104,44 @@ body {
   display: none;
 }
 
+.form-check-label{
+  color:white;
+}
+
+/* Button container */
+#btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  visibility: hidden;
+  width: 100%;
+  max-width: 450px;
+}
+
 #resume-btn {
   width: 100px;
   height: 100px;
   margin-right: 20px;
 }
 
+/* Label container */
 #label-container {
   display: none;
 }
 
-
-
-#canvas {
+/* Home screen wrapper */
+.home-screen-wrapper {
   display: flex;
-  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
+
+#home-screen {
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  max-width: 430px;
+  max-height: 930px;
+  object-fit: cover;
+}
+

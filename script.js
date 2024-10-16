@@ -9,11 +9,9 @@ let model, webcam, ctx, labelContainer, maxPredictions;
 var result = "";
 
 // For screen size you can use the screen object
-const height = window.screen.height;
-const width = window.screen.width;
+const height = window.screen.height -15;
+const width = window.screen.width - 15;
 
-// console.log("width " + width);
-// console.log("height " + height);
 document.getElementById("result-timer-wrapper").style.width = width - 5 + "px";
 document.getElementById("pass-container").style.width = width + "px";
 document.getElementById("btn-container").style.width = width + "px";
@@ -29,9 +27,6 @@ async function init() {
   maxPredictions = model.getTotalClasses();
 
   // Convenience function to setup a webcam
-  // const width = 390;
-  // const height = 370;
-
   const flip = true; // whether to flip the webcam
   webcam = new tmPose.Webcam(width, width, flip); // width, height, flip
   await webcam.setup(); // request access to the webcam
@@ -93,84 +88,6 @@ async function predict() {
 
   let displayedResult = "";
   // if conditionals that concat the letter matching the trained model to the result string
-  // if (prediction[0].probability > 0.5) {
-  //   displayedResult = "A";
-  // }
-  // if (prediction[1].probability > 0.5) {
-  //   displayedResult = "B";
-  // }
-  // if (prediction[2].probability > 0.5) {
-  //   displayedResult = "C";
-  // }
-  // if (prediction[3].probability > 0.5) {
-  //   displayedResult = "D";
-  // }
-  // if (prediction[4].probability > 0.5) {
-  //   displayedResult = "E";
-  // }
-  // if (prediction[5].probability > 0.5) {
-  //   displayedResult = "F";
-  // }
-  // if (prediction[6].probability > 0.5) {
-  //   displayedResult = "G";
-  // }
-  // if (prediction[7].probability > 0.5) {
-  //   displayedResult = "H";
-  // }
-  // if (prediction[8].probability > 0.5) {
-  //   displayedResult = "I";
-  // }
-  // if (prediction[9].probability > 0.5) {
-  //   displayedResult = "J";
-  // }
-  // if (prediction[10].probability > 0.5) {
-  //   displayedResult = "K";
-  // }
-  // if (prediction[11].probability > 0.5) {
-  //   displayedResult = "L";
-  // }
-  // if (prediction[12].probability > 0.5) {
-  //   displayedResult = "M";
-  // }
-  // if (prediction[13].probability > 0.5) {
-  //   displayedResult = "N";
-  // }
-  // if (prediction[14].probability > 0.5) {
-  //   displayedResult = "O";
-  // }
-  // if (prediction[15].probability > 0.5) {
-  //   displayedResult = "P";
-  // }
-  // if (prediction[16].probability > 0.5) {
-  //   displayedResult = "Q";
-  // }
-  // if (prediction[17].probability > 0.5) {
-  //   displayedResult = "R";
-  // }
-  // if (prediction[18].probability > 0.5) {
-  //   displayedResult = "S";
-  // }
-  // if (prediction[19].probability > 0.5) {
-  //   displayedResult = "T";
-  // }
-  // if (prediction[20].probability > 0.5) {
-  //   displayedResult = "U";
-  // }
-  // if (prediction[21].probability > 0.5) {
-  //   displayedResult = "V";
-  // }
-  // if (prediction[22].probability > 0.5) {
-  //   displayedResult = "W";
-  // }
-  // if (prediction[23].probability > 0.5) {
-  //   displayedResult = "X";
-  // }
-  // if (prediction[24].probability > 0.5) {
-  //   displayedResult = "Y";
-  // }
-  // if (prediction[25].probability > 0.5) {
-  //   displayedResult = "Z";
-  // }
 
   if (prediction[0].probability > 0.5) {
     displayedResult = "I";
@@ -223,110 +140,7 @@ async function pause() {
 
   // if conditionals that concat the letter matching the trained model to the result string
   // result is GLOBAL
-  // if (prediction[0].probability > 0.5) {
-  //   result = result + "A";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[1].probability > 0.5) {
-  //   result = result + "B";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[2].probability > 0.5) {
-  //   result = result + "C";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[3].probability > 0.5) {
-  //   result = result + "D";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[4].probability > 0.5) {
-  //   result = result + "E";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[5].probability > 0.5) {
-  //   result = result + "F";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[6].probability > 0.5) {
-  //   result = result + "G";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[7].probability > 0.5) {
-  //   result = result + "H";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[8].probability > 0.5) {
-  //   result = result + "I";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[9].probability > 0.5) {
-  //   result = result + "J";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[10].probability > 0.5) {
-  //   result = result + "K";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[11].probability > 0.5) {
-  //   result = result + "L";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[12].probability > 0.5) {
-  //   result = result + "M";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[13].probability > 0.5) {
-  //   result = result + "N";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[14].probability > 0.5) {
-  //   result = result + "O";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[15].probability > 0.5) {
-  //   result = result + "P";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[16].probability > 0.5) {
-  //   result = result + "Q";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[17].probability > 0.5) {
-  //   result = result + "R";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[18].probability > 0.5) {
-  //   result = result + "S";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[19].probability > 0.5) {
-  //   result = result + "T";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[20].probability > 0.5) {
-  //   result = result + "U";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[21].probability > 0.5) {
-  //   result = result + "V";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[22].probability > 0.5) {
-  //   result = result + "W";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[23].probability > 0.5) {
-  //   result = result + "X";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[24].probability > 0.5) {
-  //   result = result + "Y";
-  //   document.getElementById("myInput").value = result;
-  // }
-  // if (prediction[25].probability > 0.5) {
-  //   result = result + "Z";
-  //   document.getElementById("myInput").value = result;
-  // }
+  
   if (prediction[0].probability > 0.5) {
     result = result + "I";
     document.getElementById("myInput").value = result;
@@ -396,7 +210,7 @@ function checkDirection() {
   if (hasEventHappened === false) {
     if (touchendY < touchstartY) {
       // document.body.style.overflow = "visible";
-      toggleFullscreen();
+      // toggleFullscreen();
       document.getElementById("lock-screen").style.display = "none";
       document.getElementById("app-container").style.visibility = "visible";
       init();
@@ -459,7 +273,7 @@ function startTimer(duration, display) {
       timer = duration;
       //if timer hits 0 seconds, capture letter value and restart feed
       pause();
-      init();
+      // init();
     }
   }, 1000);
 }
